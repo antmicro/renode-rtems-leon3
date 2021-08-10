@@ -1,0 +1,17 @@
+name: Test action
+ 
+on: [push,pull_request,workflow_dispatch]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build rtems demos for leon3
+        run: ./build-rtems.sh
+        shell: bash
+      - name: Output sample binaries
+        uses: actions/upload-artifact@v2
+        with:
+          name: rtems-binaries
+          path: rcc-1.3.0-gcc/src/samples/bin/leon3
