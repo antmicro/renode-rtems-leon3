@@ -1,0 +1,46 @@
+:name: Leon3 rtems demo
+:description: This script runs the rtems shell demo on Leon3
+
+using sysbus
+$name?="Leon3"
+mach create $name
+
+machine LoadPlatformDescription @platforms/boards/leon3.repl
+
+set bios $ORIGIN/prom.bin
+set bin $ORIGIN/rtems-shell
+
+# set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-ttcpw
+# set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-ttcp
+# set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-tlib
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-tasks
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-synctrap
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-spi
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-soft-float
+# set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-pci
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-occan_tx
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-occan_rx
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-occan
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-i2cmst
+# set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-hello
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-grcan_tx
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-grcan_rx
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-grcan
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-gpio
+        # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-cdtest
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-brm_rt    
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-brm_bm
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-brm_bc
+    # set bin $ORIGIN/rcc-1.3.0-gcc/src/samples/bin/leon3/rtems-b1553rt
+
+showAnalyzer sysbus.uart
+
+macro reset
+"""
+    sysbus LoadBinary $bios 0x0
+    sysbus LoadELF $bin
+
+    cpu PC 0
+"""
+
+runMacro $reset
