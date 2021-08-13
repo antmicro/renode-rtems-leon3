@@ -10,8 +10,21 @@ jobs:
       - name: Build rtems demos for leon3
         run: ./build-rtems.sh
         shell: bash
-      - name: Output sample binaries
+      # - name: Output sample binaries
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: rtems-binaries
+      #     path: rcc-1.3.0-gcc/src/samples/bin/leon3
+      - name: Run tests
+        uses: antmicro/renode-actions/test-in-renode@main
+        with:
+          renode-version: 'latest'
+          tests-to-run: 'leon3_rtems.robot'
+      - name: Archive results
         uses: actions/upload-artifact@v2
         with:
-          name: rtems-binaries
-          path: rcc-1.3.0-gcc/src/samples/bin/leon3
+          name: test-results
+          path: |
+            report.html
+            log.html
+            robot_output.xml
