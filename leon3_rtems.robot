@@ -8,14 +8,13 @@ Resource                      ${RENODEKEYWORDS}
 *** Variables ***
 ${SCRIPT}                     ${CURDIR}/leon3_rtems.resc
 ${UART}                       sysbus.uart
-${OUTPUT_DIR}                 "${CURDIR}/rcc-1.3.0-gcc/src/samples/bin/leon3"
 ${PROMPT}                     SHLL [/] # 
 
 *** Keywords ***
 Prepare Sample
     [Arguments]  ${sample_name}
 
-    Execute Command           $bin="${OUTPUT_DIR}/${sample_name}"
+    Execute Command           $bin="${CURDIR}/rcc-1.3.0-gcc/src/samples/bin/leon3/${sample_name}"
     Execute Script            ${SCRIPT}
 
     Create Terminal Tester    ${UART}
