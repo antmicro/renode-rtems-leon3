@@ -8,10 +8,14 @@ Resource                      ${RENODEKEYWORDS}
 *** Variables ***
 ${SCRIPT}                     ${CURDIR}/leon3_rtems.resc
 ${UART}                       sysbus.uart
+${OUTPUT_DIR}                 "${CURDIR}/rcc-1.3.0-gcc/src/samples/bin/leon3"
 ${PROMPT}                     SHLL [/] # 
 
 *** Keywords ***
-Prepare Machine
+Prepare Sample
+    [Arguments]  ${sample_name}
+
+    Execute Command           $bin="${OUTPUT_DIR}/${sample_name}"
     Execute Script            ${SCRIPT}
 
     Create Terminal Tester    ${UART}
@@ -20,7 +24,7 @@ Prepare Machine
 Should Boot RTEMS
     [Documentation]           Boots RTEMS on the Leon3 platform.
     [Tags]                    rtems  uart
-    Prepare Machine
+    Prepare Sample            rtems-shell
 
     Start Emulation
 
