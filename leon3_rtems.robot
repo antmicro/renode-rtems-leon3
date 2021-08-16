@@ -16,7 +16,7 @@ Prepare Sample
 
     Execute Command           $bin="${CURDIR}/rcc-1.3.0-gcc/src/samples/bin/leon3/${sample_name}"
     Execute Script            ${SCRIPT}
-
+    Set Default Uart Timeout  60
     Create Terminal Tester    ${UART}
 
 *** Test Cases ***
@@ -38,3 +38,30 @@ Should Print System Information
 
     Write Line To Uart        drvmgr
     Wait For Line On Uart     NO DEVICES FAILED TO INITIALIZE
+
+Should Pass Timer Test
+    [Documentation]           Using the timer library TLIB provided by the LEON3 BSP.
+    [Tags]                    rtems  uart
+    Prepare Sample            rtems-tlib
+
+    Start Emulation
+
+    Wait For Line On Uart     Timer test OK
+
+Should Print Hello World
+    [Documentation]           Run basic hello world sample.
+    [Tags]                    rtems  uart
+    Prepare Sample            rtems-hello
+
+    Start Emulation
+
+    Wait For Line On Uart     Hello World over printk() on Debug console
+
+Should Initialize Network
+    [Documentation]           Run ttcp sample.
+    [Tags]                    rtems  uart
+    Prepare Sample            rtems-ttcp
+
+    Start Emulation
+
+    Wait For Line On Uart     Initializing network DONE
