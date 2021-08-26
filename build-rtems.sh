@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-wget --progress=bar https://www.gaisler.com/anonftp/rcc/bin/linux/sparc-rtems-5-gcc-10.2.0-1.3.0-linux.txz
+wget --progress=dot:giga https://www.gaisler.com/anonftp/rcc/bin/linux/sparc-rtems-5-gcc-10.2.0-1.3.0-linux.txz
 tar -Jxf sparc-rtems-5-gcc-10.2.0-1.3.0-linux.txz
 pushd rcc-1.3.0-gcc/src/samples/
 # Add rtems-shell application to LEON3 target
