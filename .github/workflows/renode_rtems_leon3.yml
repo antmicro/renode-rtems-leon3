@@ -10,11 +10,11 @@ jobs:
       - name: Build rtems demos for leon3
         run: ./build-rtems.sh
         shell: bash
-      - name: Build PROM for leon3 
+      - name: Build PROM for leon3
         run: ./build-prom.sh
         shell: bash
       - name: Run tests
-        uses: antmicro/renode-actions/test-in-renode@main
+        uses: antmicro/renode-test-action@v1.0.0
         with:
           renode-version: 'latest'
           tests-to-run: 'leon3_rtems.robot'
